@@ -1,239 +1,114 @@
 # CozaStore - E-Commerce Platform
 
-Modern ve ölçeklenebilir bir e-ticaret platformu. ASP.NET Core Web API ve MVC kullanılarak geliştirilmiştir.
+> Modern ve ölçeklenebilir e-ticaret platformu. ASP.NET Core 9 Web API + MVC, Clean Architecture. 60 saniyede keşfet.
 
-## 🚀 Özellikler
+## What it is
 
-### Kullanıcı Özellikleri
-- ✅ Ürün listeleme ve detay sayfaları
-- ✅ Kategori bazlı filtreleme
-- ✅ Sepet yönetimi
-- ✅ İstek listesi (Wishlist)
-- ✅ Sipariş oluşturma ve takibi
-- ✅ Ürün yorumlama ve değerlendirme
-- ✅ İletişim formu
-- ✅ Blog okuma
+CozaStore, ürün kataloğu, sepet, sipariş, admin paneli ve JWT auth sunan tam özellikli bir e-ticaret uygulamasıdır. Clean Architecture ve SOLID prensipleri ile geliştirilmiştir.
 
-### Admin Paneli Özellikleri
-- ✅ Ürün yönetimi (CRUD)
-- ✅ Kategori yönetimi (CRUD)
-- ✅ Sipariş yönetimi ve durum güncelleme
-- ✅ Blog yönetimi (CRUD)
-- ✅ İletişim mesajları yönetimi
-- ✅ Ürün yorumları onaylama/reddetme
-- ✅ Dashboard ve istatistikler
+## Features
 
-## 🏗️ Mimari
+### Kullanıcı
+- Ürün listeleme, detay, kategori filtreleme
+- Sepet, wishlist, sipariş oluşturma ve takip
+- Ürün yorumlama, iletişim formu, blog
 
-Proje **Clean Architecture** ve **SOLID** prensipleri kullanılarak geliştirilmiştir.
+### Admin
+- Ürün, kategori, sipariş, blog CRUD
+- Yorum onaylama, iletişim mesajları, dashboard
 
-### Katmanlar
+## Tech Stack
 
-```
-CozaStore/
-├── CozaStoreWebAPI/          # REST API (Backend)
-├── CozaStoreWebUI/           # MVC Web Application (Frontend)
-├── CozaStore.Business/       # Business Logic & Validation
-├── CozaStore.DataAccess/     # Data Access & Repository Pattern
-├── CozaStore.Entities/       # Domain Entities
-└── CozaStore.Core/           # Shared DTOs & Interfaces
-```
-
-### Teknolojiler
-
-#### Backend (WebAPI)
-- **Framework:** ASP.NET Core 9.0
-- **ORM:** Entity Framework Core
+- **API:** ASP.NET Core 9, EF Core, JWT, FluentValidation
+- **UI:** ASP.NET Core MVC 9, Razor, Bootstrap 5, AdminLTE
 - **Database:** SQL Server / SQLite
-- **Authentication:** JWT Bearer Token
-- **Validation:** FluentValidation
-- **Architecture:** Repository Pattern, Unit of Work
+- **Architecture:** Clean Architecture, Repository, Unit of Work
 
-#### Frontend (WebUI)
-- **Framework:** ASP.NET Core MVC 9.0
-- **Template Engine:** Razor Pages
-- **UI Framework:** Bootstrap 5, AdminLTE 4
-- **JavaScript:** jQuery, Vanilla JS
-- **Icons:** Bootstrap Icons
+## Architecture
 
-## 📋 Gereksinimler
+```mermaid
+flowchart LR
+    subgraph API
+        A[Controllers]
+    end
+    subgraph UI
+        B[MVC Views]
+    end
+    subgraph Core
+        C[Business]
+        D[DataAccess]
+        E[Entities]
+    end
+    A --> C
+    B --> A
+    C --> D
+    D --> E
+```
 
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-- [SQL Server](https://www.microsoft.com/sql-server) veya SQLite
-- [Visual Studio 2022](https://visualstudio.microsoft.com/) veya [VS Code](https://code.visualstudio.com/)
+## Run Locally
 
-## 🛠️ Kurulum
-
-### 1. Projeyi Klonlayın
+### Manuel Kurulum
 
 ```bash
-git clone https://github.com/yourusername/CozaStore.git
+git clone https://github.com/dugerdev/CozaStore.git
 cd CozaStore
 ```
 
-### 2. Database Bağlantısını Yapılandırın
+**WebAPI** `appsettings.json` – ConnectionStrings düzenle.
 
-**WebAPI için:**
-`CozaStoreWebAPI/appsettings.json` dosyasını düzenleyin:
-
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=localhost;Database=CozaStoreDb;Trusted_Connection=True;TrustServerCertificate=True"
-  }
-}
-```
-
-**WebUI için:**
-`CozaStoreWebUI/CozaStore.WebUI/appsettings.json` dosyasını düzenleyin:
-
-```json
-{
-  "ApiSettings": {
-    "BaseUrl": "https://localhost:7001/api"
-  }
-}
-```
-
-### 3. Database Migration
+**WebUI** `CozaStoreWebUI/CozaStore.WebUI/appsettings.json` – ApiSettings.BaseUrl (örn. `https://localhost:7001/api`)
 
 ```bash
 cd CozaStoreWebAPI
 dotnet ef database update
-```
-
-### 4. Projeleri Çalıştırın
-
-**Terminal 1 - WebAPI:**
-```bash
-cd CozaStoreWebAPI
 dotnet run
 ```
 
-**Terminal 2 - WebUI:**
+İkinci terminalde:
+
 ```bash
 cd CozaStoreWebUI/CozaStore.WebUI
 dotnet run
 ```
 
-### 5. Tarayıcıda Açın
-
 - **WebUI:** https://localhost:7002
-- **WebAPI (Swagger):** https://localhost:7001/swagger
+- **Swagger:** https://localhost:7001/swagger
 
-## 👤 Varsayılan Kullanıcılar
+### Varsayılan Hesaplar
 
-### Admin Hesabı
-- **Email:** admin@cozastore.com
-- **Password:** Admin123!
+| Rol | Email | Şifre |
+|-----|-------|-------|
+| Admin | admin@cozastore.com | Admin123! |
+| User | user@cozastore.com | User123! |
 
-### Test Kullanıcısı
-- **Email:** user@cozastore.com
-- **Password:** User123!
+## Live Preview
 
-## 📁 Proje Yapısı
+🔗 [Demo](https://github.com/dugerdev/CozaStore) *(deploy URL eklenebilir)*
 
-### CozaStoreWebAPI (Backend)
-```
-Controllers/          # API Endpoints
-├── AuthController.cs
-├── ProductsController.cs
-├── CategoriesController.cs
-├── OrdersController.cs
-└── ...
-```
+## Test / CI
 
-### CozaStoreWebUI (Frontend)
-```
-Controllers/          # MVC Controllers
-Areas/
-└── Admin/           # Admin Panel
-    ├── Controllers/
-    └── Views/
-Views/               # Public Views
-wwwroot/             # Static Files (CSS, JS, Images)
-```
+- **Test:** `dotnet test`
+- **CI:** GitHub Actions – build ve test
 
-### CozaStore.Business
-```
-Services/            # Business Logic
-ValidationRules/     # FluentValidation Rules
-Contracts/           # Service Interfaces
-```
+## Repo Hijyeni
 
-### CozaStore.DataAccess
-```
-Data/                # DbContext
-Repositories/        # Repository Pattern
-Configuration/       # Entity Configurations
-Migrations/          # EF Core Migrations
-```
-
-## 🔐 Güvenlik
-
-- ✅ JWT Token Authentication
-- ✅ Role-based Authorization (Admin, User)
-- ✅ Anti-Forgery Token (CSRF Protection)
-- ✅ Input Validation (FluentValidation)
-- ✅ SQL Injection Protection (EF Core)
-- ✅ XSS Protection
-
-## 🧪 Test
-
-```bash
-# Unit testleri çalıştır
-dotnet test
-
-# Coverage raporu oluştur
-dotnet test /p:CollectCoverage=true
-```
-
-## 📝 API Dokümantasyonu
-
-API dokümantasyonu Swagger UI üzerinden erişilebilir:
-- https://localhost:7001/swagger
-
-### Örnek API Endpoints
-
-```
-GET    /api/products              # Tüm ürünleri listele
-GET    /api/products/{id}         # Ürün detayı
-POST   /api/products              # Yeni ürün ekle (Admin)
-PUT    /api/products/{id}         # Ürün güncelle (Admin)
-DELETE /api/products/{id}         # Ürün sil (Admin)
-
-GET    /api/categories            # Kategorileri listele
-POST   /api/auth/login            # Giriş yap
-POST   /api/auth/register         # Kayıt ol
-```
-
-## 🤝 Katkıda Bulunma
-
-1. Fork yapın
-2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
-3. Değişikliklerinizi commit edin (`git commit -m 'feat: Add amazing feature'`)
-4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
-5. Pull Request açın
-
-## 📄 Lisans
-
-Bu proje MIT lisansı altında lisanslanmıştır.
-
-## 📧 İletişim
-
-Proje Sahibi - [@dugerdev](https://github.com/yourusername)
-
-Proje Linki: [https://github.com/dugerdev/CozaStore](https://github.com/yourusername/CozaStore)
-
-## 🙏 Teşekkürler
-
-- [AdminLTE](https://adminlte.io/) - Admin panel template
-- [CozaStore Template](https://colorlib.com/wp/template/cozastore/) - Frontend template
-- ASP.NET Core Team
+- [x] `.env.example` – Ortam değişkenleri şablonu
+- [x] `LICENSE` – Lisans dosyası
+- [x] `.gitignore`
 
 ---
 
-⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!
+## .env.example
 
+`.env.example` proje kökünde. Docker/CI için:
 
+```
+ConnectionStrings__DefaultConnection=Server=localhost;Database=CozaStoreDb;Trusted_Connection=True;TrustServerCertificate=True
+JwtSettings__SecretKey=your-32-char-secret
+ApiSettings__BaseUrl=https://localhost:7001/api
+ASPNETCORE_ENVIRONMENT=Development
+```
 
+## License
+
+MIT License – [LICENSE](LICENSE)
